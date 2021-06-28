@@ -35,14 +35,14 @@ Para el caso de la base de datos se uso Oracle la version 19c
 
 ##### Esta es la arquitectura planteada:
 
-![N|Solid](https://raw.githubusercontent.com/gkruiz/ProyectoFinalArchivos9/main/ImagenesMD/estructura.JPG?token=AF6K35ZDNOYH6AHCHNSIZ2TA3GDEY) 
+![N|Solid](./ImagenesMD/estructura.JPG?token=AF6K35ZDNOYH6AHCHNSIZ2TA3GDEY) 
 
 
 Todo el proyecto corre bajo el Sistema Operativo Windows 10 X64
 
 ## Diagrama Entidad Relacion :
 
-![Build Status](https://raw.githubusercontent.com/gkruiz/ProyectoFinalArchivos9/main/ImagenesMD/diagrama9.png?token=AF6K355HN7ZWZ7ZHX24IFSTA3GD2Yr)
+![N|Solid](./ImagenesMD/diagrama9.png?token=AF6K355HN7ZWZ7ZHX24IFSTA3GD2Yr)
 
 
 #### Se uso un total de 6 tablas las cuales son :
@@ -191,12 +191,12 @@ Luego hace el insert sobre la tabla USUARIO , y le pasa sus parametros , por ult
 
 #### Instancia de Oracle Instalada
 
-![Build Status](https://raw.githubusercontent.com/gkruiz/ProyectoFinalArchivos9/main/ImagenesMD/cmd2.JPG?token=AF6K3555KOKNLYBINMCRK3DA3GL34)
+![N|Solid](./ImagenesMD/cmd2.JPG?token=AF6K3555KOKNLYBINMCRK3DA3GL34)
 
 
 #### Instancia de Oracle Abierta en SQL Developer 
 
-![Build Status](https://raw.githubusercontent.com/gkruiz/ProyectoFinalArchivos9/main/ImagenesMD/conexion9.JPG?token=AF6K353UL3RFJI2LVE7DS53A3GMBU)
+![N|Solid](./ImagenesMD/conexion9.JPG?token=AF6K353UL3RFJI2LVE7DS53A3GMBU)
 
 
 
