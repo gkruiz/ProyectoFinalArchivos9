@@ -39,7 +39,7 @@ router.post('/registro', async  (req,res) => {
     var texencryp=encrypted.toString();
     /*var decrypted = CryptoJS.AES.decrypt(encrypted, password);
     console.log(decrypted.toString(CryptoJS.enc.Utf8));*/
-    sql = "INSERT INTO usuario(nombre,usuario,contrasena,urlf)VALUES(:nombre,:usuario,:contrasena,:urlf)";
+    sql = "CALL GuardaInfo(:nombre , :usuario , :contrasena , :urlf)";
     let result = await Database.Connection(sql, [nombre,usuario,texencryp,urlf], true);
     res.json(texencryp);
     
@@ -57,6 +57,7 @@ router.post('/login', async  (req,res) => {
     var encrypted = (CryptoJS.MD5(contrasena));
     var texencryp=encrypted.toString();
     sql = "SELECT * FROM usuario WHERE usuario=:usuario and contrasena=:texencryp";
+    //sql = "SELECT * FROM usuario WHERE usuario=:usuario and contrasena=:texencryp";
     let result = await Database.Connection(sql, [usuario,texencryp], false);
     
     Usuario = [];
@@ -146,10 +147,12 @@ router.post('/publicacionN', async  (req,res) => {
     idPubli=(Inicio[0])['id'];
 
 
-    //console.log("no error 1");
-
     //separa y guarda los tags
     var tagSeparado=tags.split(",")
+    if(tags.length==0){
+        //var ar=[" "];
+        tagSeparado=[" "];
+    }
     //console.log("no error 2");
     //busca cada uno y si no existe lo guarda
     for(var i=0;i<tagSeparado.length;i++){
@@ -322,7 +325,70 @@ router.post('/getAmigos', async  (req,res) => {
 
 
 
+router.post('/getPublicaciones', async  (req,res) => {
 
+    const { id } = req.body;
+
+    sql = "(SELECT p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha FROM usuario u , usuario_contacto c ,publicacion p WHERE :id=c.usuario_id_usuario and c.usuario_id_amigo=u.id and c.estado=3  and p.usuario_id_usuario=u.id GROUP BY p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha ) UNION (SELECT p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha FROM usuario u ,publicacion p WHERE  p.usuario_id_usuario=:id and p.usuario_id_usuario=u.id GROUP BY p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha )  order by fecha desc";
+    let result = await Database.Connection(sql, [id,id], false);
+    
+    Usuario = [];
+
+    result.rows.map(usu => {
+        let lusu = {
+            "id": usu[0],
+            "nombre": usu[1],
+            "urlf": usu[2],
+            "texto": usu[3],
+            "ruta": usu[4],
+            "fecha": usu[5]
+        }
+        Usuario.push(lusu);
+    })
+
+    res.json(Usuario);
+});
+
+
+
+
+
+
+
+
+router.post('/getPubliTags', async  (req,res) => {
+
+    const { id,tags } = req.body;
+
+    
+    //separa y guarda los tags
+    var tagSeparado=tags.split(",")
+    //array para guardar las publicaciones tag
+    Usuario = [];
+    //busca cada uno y si no existe lo guarda
+    for(var i=0;i<tagSeparado.length;i++){
+
+        sql = "(SELECT p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha,t.nombre FROM usuario u , usuario_contacto c ,publicacion p,tags t,tags_publicacion tg WHERE :id=c.usuario_id_usuario and c.usuario_id_amigo=u.id and c.estado=3 and p.usuario_id_usuario=u.id and u.id=tg.publicacion_usuario_id_usuario and p.id=tg.publicacion_id_publicacion and t.id=tg.tags_id and t.nombre=:tag GROUP BY p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha,t.nombre ) UNION (SELECT p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha,t.nombre FROM usuario u ,publicacion p,tags t,tags_publicacion tg WHERE  p.usuario_id_usuario=:id and p.usuario_id_usuario=u.id and u.id=tg.publicacion_usuario_id_usuario and p.id=tg.publicacion_id_publicacion and t.id=tg.tags_id and t.nombre=:tag GROUP BY p.id ,u.nombre,u.urlf ,p.texto ,p.ruta ,p.fecha,t.nombre ) order by fecha desc";
+        let result = await Database.Connection(sql, [id,tagSeparado[i],id,tagSeparado[i]], false);
+
+        result.rows.map(usu => {
+            let lusu = {
+                "id": usu[0],
+                "nombre": usu[1],
+                "urlf": usu[2],
+                "texto": usu[3],
+                "ruta": usu[4],
+                "fecha": usu[5],
+                "tnombre": usu[6]
+            }
+            Usuario.push(lusu);
+        })
+
+    }
+
+
+    res.json(Usuario);
+});
 
 
 module.exports = router;
