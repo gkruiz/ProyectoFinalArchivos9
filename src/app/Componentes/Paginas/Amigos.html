@@ -1,0 +1,189 @@
+
+
+<style>
+body {
+    background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
+    background-size: cover;
+    font-family: Montserrat;
+}
+
+
+
+
+
+.retorno {
+    width: 300px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    position:absolute;
+    margin-top:-150px;
+}
+
+
+.retorno input:active, .login-block input:focus {
+    border: 1px solid #ff656c;
+}
+
+.retorno button {
+    width: 100%;
+    height: 40px;
+    background: #ff656c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e15960;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
+}
+
+.retorno button:hover {
+    background: #ff7b81;
+}
+
+
+
+
+.Simple {
+    width: 360px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top:150px;
+    height: 25px;
+    border-top: 5px solid #ff656c;
+}
+
+
+
+
+
+
+
+.Simple h4 {
+    text-align: center;
+}
+
+
+.public {
+    width: 100%;
+    padding: 10px;
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    margin: 0 auto;
+    display:inherit;
+}
+
+.cuerpo {
+    width:390px;
+    
+    margin:0 auto;
+}
+.iterador {
+    display:inline-table;
+    width:124px;
+}
+
+
+.public input:active, .login-block input:focus {
+    border: 1px solid #ff656c;
+}
+
+.public button {
+    width: 90%;
+    height: 40px;
+    background: #ff656c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e15960;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
+}
+
+.public button:hover {
+    background: #ff7b81;
+}
+
+.public input#username:focus {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
+}
+
+
+.fusuario  {
+    text-align: center;
+    width: 50px;
+    height:50px;
+    border-radius: 25px;
+}
+
+</style>
+
+
+
+
+ 
+
+
+
+
+
+<div class="retorno" id="retorno">
+    <table>
+        <tr>
+            <td>
+<img class="fusuario" [src]="muesImagen"/>
+            </td>
+            <td>
+<button  routerLink="/inicio">Inicio</button>
+            </td>
+            <td>
+<button routerLink="/chat">Chat</button>
+            </td>
+            <td>
+<button>Graficas</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+<button routerLink="/login">Salir</button>
+            </td>
+            <td>
+<button routerLink="/amigos">Amigos</button>
+            </td>
+            <td>
+<button routerLink="/agregar">Agregar</button>
+            </td>
+            <td>
+<button routerLink="/informacion">Informacion</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="Simple">
+    <h4>Lista de Amigos</h4>
+</div>
+
+<div class="cuerpo">
+    <div class="iterador" *ngFor="let usuario of info">
+        <div class="public">
+            <p >{{usuario.nombre}}</p>
+            <input name="id"      type="hidden" value={{usuario.id}}      #id>
+            <input name="estado"  type="hidden" value="{{usuario.estado}}" #estado>
+            <img src="../../../assets/ImgUsuario/{{usuario.urlf}}" width="100px" height="100px"/>    
+            <button  (click)="publicacion(id.value,estado.value)">Chat</button>
+        </div>
+    </div>
+</div>

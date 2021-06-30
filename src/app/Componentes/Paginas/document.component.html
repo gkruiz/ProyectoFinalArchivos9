@@ -1,0 +1,64 @@
+<style>
+
+.texta{
+
+width:100%;
+height:200px;
+}
+
+
+</style>
+
+
+
+<style>
+
+.login-block input {
+        width: 100%;
+        height: 42px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-family: Montserrat;
+        padding: 0 20px 0 50px;
+        outline: none;
+    }
+
+    .login-block button {
+        width: 100%;
+        height: 40px;
+        background: #ff656c;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #e15960;
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-family: Montserrat;
+        outline: none;
+        cursor: pointer;
+    }
+</style>
+
+
+
+
+
+
+<div class="login-block">
+  <textarea 
+    class="texta"
+    [(ngModel)]="document.doc"
+
+    placeholder='Start typing...'
+    readonly
+  ></textarea>
+
+  <input type="text"  placeholder="escriba su mensaje" [(ngModel)]="mensajeNuevo"/>
+  <button (click)="editDoc()" >Enviar</button>
+
+
+</div>
